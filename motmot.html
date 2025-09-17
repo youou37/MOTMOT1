@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy 7th Monthsary</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #ffe4ec, #fff0f5);
+      color: #444;
+      text-align: center;
+    }
+    header {
+      padding: 50px 20px;
+    }
+    header h1 {
+      font-size: 3em;
+      color: #e91e63;
+      animation: bounce 2s infinite;
+    }
+    header p {
+      font-size: 1.2em;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    section {
+      padding: 40px 20px;
+    }
+    .song-select select {
+      padding: 10px;
+      font-size: 1em;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+    audio {
+      margin-top: 20px;
+      width: 320px;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    /* Envelope styles */
+    .envelope {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      margin: 30px auto;
+      background: #f48fb1;
+      border-radius: 5px;
+      cursor: pointer;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+    .envelope:hover {
+      transform: scale(1.05);
+    }
+    .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 150px solid transparent;
+      border-right: 150px solid transparent;
+      border-bottom: 100px solid #ec407a;
+      transform-origin: top;
+      transition: transform 0.6s ease;
+      z-index: 2;
+    }
+    .letter {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      padding: 20px;
+      box-sizing: border-box;
+      transition: top 0.6s ease, box-shadow 0.6s ease;
+      z-index: 1;
+      font-style: italic;
+      border-radius: 10px;
+    }
+    .envelope.open .flap {
+      transform: rotateX(180deg);
+    }
+    .envelope.open .letter {
+      top: 0;
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.8), 
+                  0 0 40px rgba(255, 182, 193, 0.6),
+                  0 0 60px rgba(255, 192, 203, 0.4);
+      animation: glowPulse 2s infinite alternate;
+    }
+    @keyframes glowPulse {
+      from {
+        box-shadow: 0 0 15px rgba(255, 105, 180, 0.6),
+                    0 0 25px rgba(255, 182, 193, 0.4);
+      }
+      to {
+        box-shadow: 0 0 25px rgba(255, 105, 180, 1),
+                    0 0 50px rgba(255, 182, 193, 0.8),
+                    0 0 75px rgba(255, 192, 203, 0.6);
+      }
+    }
+    #hearts-container {
+      position: relative;
+      width: 100%;
+      height: 0;
+      overflow: visible;
+    }
+    .heart {
+      position: absolute;
+      bottom: 0;
+      font-size: 20px;
+      color: #e91e63;
+      animation: floatUp 3s ease-in forwards;
+      opacity: 0.8;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-200px) scale(1.5); opacity: 0; }
+    }
+
+    footer {
+      padding: 20px;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero -->
+  <header>
+    <h1>My Baby, Lucas ❤️</h1>
+    <p>Happy 7th Monthsary to Us!</p>
+  </header>
+
+  <!-- Song Selector -->
+  <section class="song-select">
+    <h2> Choose Songs 🎶</h2>
+    <select id="songSelect" onchange="playSong()">
+      <option value="yellow.mp3">Yellow - Coldplay</option>
+      <option value="synesthesia.mp3">Synesthesia - Mayonnaise</option>
+      <option value="illbe.mp3">I'll Be - Edwin McCain</option>
+      <option value="milkyway.mp3">Milkyway - The Ridleys</option>
+    </select>
+    <div id="player">
+      <!-- Default song loaded -->
+      <audio id="audioPlayer" controls>
+        <source src="yellow.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section>
+    <h2>📸</h2>
+    <div class="gallery">
+      <img src="pic1.jpg" alt="pic1">
+      <img src="pic2.jpg" alt="pic2">
+      <img src="pic3.jpg" alt="pic3">
+      <img src="pic4.jpg" alt="pic4">
+    </div>
+  </section>
+
+  <!-- Message -->
+  <section>
+    <h2>A Message for You 💌</h2>
+    <div class="envelope" onclick="openEnvelope()">
+      <div class="flap"></div>
+      <div class="letter">
+        No matter what challenges we face, I’ll always choose you. 💖<br/>
+        Thank you for standing by me for 7 wonderful months.<br/>
+        Here’s to more months and years of love, laughter, and forever together.
+      </div>
+    </div>
+    <div id="hearts-container"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+     by Lorence for Lucas | 7th Monthsary September 2025
+    <div>all rights reserved.</div> 
+  </footer>
+
+  <script>
+    function playSong() {
+      const file = document.getElementById('songSelect').value;
+      const audioPlayer = document.getElementById('audioPlayer');
+      audioPlayer.src = file;
+      audioPlayer.play();
+    }
+
+    function openEnvelope() {
+      const envelope = document.querySelector(".envelope");
+      envelope.classList.toggle("open");
+
+      if (envelope.classList.contains("open")) {
+        launchHearts();
+      }
+    }
+
+    function launchHearts() {
+      const container = document.getElementById("hearts-container");
+      for (let i = 0; i < 15; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.animationDelay = (Math.random() * 1) + "s";
+        container.appendChild(heart);
+        setTimeout(() => heart.remove(), 3000);
+      }
+    }
+  </script>
+</body>
+</html>
